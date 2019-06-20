@@ -29,11 +29,21 @@ twinkle_twinkle.total_time = 8
 
 twinkle_twinkle.tempos.add(qpm=60);
 
-# This is a colab utility method to download that file. In your Python script, you
-# would just write it to disk.
-print("Downloading model bundle. This will take less than a minute...")
-mm.notebook_utils.download_bundle('basic_rnn.mag', '/content/')
-bundle = mm.sequence_generator_bundle.read_bundle_file('/content/basic_rnn.mag')
+teapot = music_pb2.NoteSequence()
+teapot.notes.add(pitch=69, start_time=0, end_time=0.5, velocity=80)
+teapot.notes.add(pitch=71, start_time=0.5, end_time=1, velocity=80)
+teapot.notes.add(pitch=73, start_time=1, end_time=1.5, velocity=80)
+teapot.notes.add(pitch=74, start_time=1.5, end_time=2, velocity=80)
+teapot.notes.add(pitch=76, start_time=2, end_time=2.5, velocity=80)
+teapot.notes.add(pitch=81, start_time=3, end_time=4, velocity=80)
+teapot.notes.add(pitch=78, start_time=4, end_time=5, velocity=80)
+teapot.notes.add(pitch=81, start_time=5, end_time=6, velocity=80)
+teapot.notes.add(pitch=76, start_time=6, end_time=8, velocity=80)
+teapot.total_time = 8
+
+teapot.tempos.add(qpm=60);
+
+mm.sequence_proto_to_midi_file(teapot, 'drums_sample_output.mid')
 
 # Import dependencies.
 from magenta.models.melody_rnn import melody_rnn_sequence_generator
@@ -41,6 +51,9 @@ from magenta.protobuf import generator_pb2
 from magenta.protobuf import music_pb2
 
 # Initialize the model.
+mm.notebook_utils.download_bundle('basic_rnn.mag', '/content/')
+bundle = mm.sequence_generator_bundle.read_bundle_file('/content/basic_rnn.mag')
+
 
 generator_map = melody_rnn_sequence_generator.get_generator_map()
 melody_rnn = generator_map['basic_rnn'](checkpoint=None, bundle=bundle)
