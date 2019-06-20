@@ -1,5 +1,5 @@
 # Composer-Bot
 
-Project of a  high school student.
+Project of a high school student, well now students.
 
-Most of it are probably not gonna work.
+Most of it is probably not gonna work.
